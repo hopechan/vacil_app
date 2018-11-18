@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './opciones.dart';
+import 'package:vacil_app/vistas/mapa.dart';
 
 String dato;
 class Home extends StatefulWidget {
@@ -25,7 +26,7 @@ class HomeState extends State<Home> {
           ),
           body: TabBarView(
             children: <Widget>[
-              Icon(FontAwesomeIcons.bus),
+              MapaState().build(context),
               Icon(FontAwesomeIcons.taxi),
               Icon(FontAwesomeIcons.walking)
             ],
@@ -51,11 +52,11 @@ class HomeState extends State<Home> {
                 ),
                 new ListTile(
                   title: new Text("mis rutas"),
-                  trailing: new Icon(Icons.location_on),
+                  trailing: new Icon(FontAwesomeIcons.mapMarkerAlt),
                 ),
                 new ListTile(
                   title: new Text("opciones"),
-                  trailing: new Icon(Icons.settings),
+                  trailing: new Icon(FontAwesomeIcons.cog),
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext contex) => new Opciones()));
@@ -63,13 +64,13 @@ class HomeState extends State<Home> {
                 ),
                 new ListTile(
                   title: new Text("cerrar"),
-                  trailing: new Icon(Icons.close),
+                  trailing: new Icon(FontAwesomeIcons.times),
                   onTap: () => Navigator.of(context).pop(),
                 ),
                 new Divider(),
                 new ListTile(
                   title: new Text("Logout"),
-                  trailing: new Icon(Icons.arrow_back),
+                  trailing: new Icon(FontAwesomeIcons.arrowLeft)
                 )
               ],
             )
