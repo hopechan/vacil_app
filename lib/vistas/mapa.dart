@@ -11,11 +11,13 @@ class MapaState extends State<Mapa>{
   Widget build(BuildContext context) {
     return new FlutterMap(
       options: new MapOptions(
+        //coordenadas iniciales cuando inicia app
         center: new LatLng(51.5, -0.09),
         zoom: 13.0,
       ),
       layers: [
         new TileLayerOptions(
+          //URL de mapbox con la llave 
           urlTemplate: "https://api.tiles.mapbox.com/v4/"
               "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
           additionalOptions: {
