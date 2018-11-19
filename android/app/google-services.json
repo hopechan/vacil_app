@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "431431315998",
+    "firebase_url": "https://vacilapp-96854.firebaseio.com",
+    "project_id": "vacilapp-96854",
+    "storage_bucket": "vacilapp-96854.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431431315998:android:90feea5f53ba1128",
+        "android_client_info": {
+          "package_name": "com.example.vacilapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431431315998-fl5ac1473m5n57uefo2nticktn2hu550.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vacilapp",
+            "certificate_hash": "d663ad4b04fe0e2097a09baeed87597ac291a83a"
+          }
+        },
+        {
+          "client_id": "431431315998-phlklsngf3l0db4h1ei64h77prjk0gkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjfsG8yW91C4lC73JE_FyeklwbbQ3uym4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431431315998-phlklsngf3l0db4h1ei64h77prjk0gkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
