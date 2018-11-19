@@ -18,22 +18,27 @@ class HomeState extends State<Home> {
           appBar: AppBar(
             bottom: TabBar(
               tabs: <Widget>[
+                //se crean pestañas con sus respectivos iconos
                 Tab(icon: Icon(FontAwesomeIcons.bus)),
                 Tab(icon: Icon(FontAwesomeIcons.taxi)),
                 Tab(icon: Icon(FontAwesomeIcons.walking))
-              ],
-            ),
-          ),
+              ],//fin pestañas
+            ),//fin tabbar
+          ),//fin app bar
           body: TabBarView(
             children: <Widget>[
-              MapaState().build(context),
+              //Se llama y construye el widget de mapa y solo se muestra en la primera pestaña
+              MapaState().build(context), 
+              //las otras pestañas solo muestran un icono
               Icon(FontAwesomeIcons.taxi),
               Icon(FontAwesomeIcons.walking)
             ],
           ),
+          //menú lateral 
           drawer: new Drawer(
             child: new ListView(
               children: <Widget>[
+                //por el momento las imágenes de perfil y portada son puesta de manera Hardcode
                 new UserAccountsDrawerHeader(
                   accountName: new Text("usuario"),
                   accountEmail: new Text("usuario@user.com"),
@@ -50,6 +55,7 @@ class HomeState extends State<Home> {
                     )
                   ),
                 ),
+                //opciones del menú 
                 new ListTile(
                   title: new Text("mis rutas"),
                   trailing: new Icon(FontAwesomeIcons.mapMarkerAlt),
@@ -57,6 +63,7 @@ class HomeState extends State<Home> {
                 new ListTile(
                   title: new Text("opciones"),
                   trailing: new Icon(FontAwesomeIcons.cog),
+                  //este menú cuando regresó a la pantalla principal me muestra un fondo negro
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext contex) => new Opciones()));
