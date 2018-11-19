@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vacil_app/vistas/home.dart';
+import 'package:vacil_app/vistas/login.dart';
 
 void main() => runApp(new MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
         theme: new ThemeData(
           primarySwatch: Colors.teal,
         ),
-        home: Home(),
+        home: SignIn(),
       ),
     );
   }
