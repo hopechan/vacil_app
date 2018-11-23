@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import './opciones.dart';
-
-String dato;
-class Home extends StatefulWidget {
-  HomeState  createState()=> HomeState();
+//import 'package:vacil_app/vistas/mapa.dart';
+import 'package:vacil_app/vistas/login.dart';
+import 'package:vacil_app/modelos/state.dart';
+import 'package:vacil_app/state_widget.dart';
+class PantallaHome extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => new PantallaHomeState();
 }
 
-class HomeState extends State<Home> {
-  @override
-  Widget build(BuildContext context){
-    return new MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: <Widget>[
-                Tab(icon: Icon(FontAwesomeIcons.bus)),
-                Tab(icon: Icon(FontAwesomeIcons.taxi)),
-                Tab(icon: Icon(FontAwesomeIcons.walking))
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: <Widget>[
-              Icon(FontAwesomeIcons.bus),
-              Icon(FontAwesomeIcons.taxi),
-              Icon(FontAwesomeIcons.walking)
+class PantallaHomeState extends State<PantallaHome> {
+  StateModel appState;
+  //Widget para tabs 
+  DefaultTabController _buildTabView({Widget body}) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: <Widget>[
+              Tab(icon: Icon(FontAwesomeIcons.bus)),
+              Tab(icon: Icon(FontAwesomeIcons.taxi)),
+              Tab(icon: Icon(FontAwesomeIcons.walking))
             ],
           ),
-          drawer: new Drawer(
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            Icon(FontAwesomeIcons.bus),
+            Icon(FontAwesomeIcons.taxi),
+            Icon(FontAwesomeIcons.walking)
+          ],
+        ),
+        drawer: new Drawer(
             child: new ListView(
               children: <Widget>[
+                //por el momento las imágenes de perfil y portada son puesta de manera Hardcode
                 new UserAccountsDrawerHeader(
                   accountName: new Text("usuario"),
                   accountEmail: new Text("usuario@user.com"),
@@ -49,13 +53,15 @@ class HomeState extends State<Home> {
                     )
                   ),
                 ),
+                //opciones del menú 
                 new ListTile(
                   title: new Text("mis rutas"),
-                  trailing: new Icon(Icons.location_on),
+                  trailing: new Icon(FontAwesomeIcons.mapMarkerAlt),
                 ),
                 new ListTile(
                   title: new Text("opciones"),
-                  trailing: new Icon(Icons.settings),
+                  trailing: new Icon(FontAwesomeIcons.cog),
+                  //este menú cuando regresó a la pantalla principal me muestra un fondo negro
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext contex) => new Opciones()));
@@ -63,19 +69,44 @@ class HomeState extends State<Home> {
                 ),
                 new ListTile(
                   title: new Text("cerrar"),
-                  trailing: new Icon(Icons.close),
+                  trailing: new Icon(FontAwesomeIcons.times),
                   onTap: () => Navigator.of(context).pop(),
                 ),
                 new Divider(),
                 new ListTile(
                   title: new Text("Logout"),
-                  trailing: new Icon(Icons.arrow_back),
+                  trailing: new Icon(FontAwesomeIcons.arrowLeft)
                 )
               ],
             )
           ),
-        )
-      )
+      ),
     );
+  }
+
+  Widget _buildContent() {
+    if (appState.isLoading) {
+      return _buildTabView(
+        body: _buildLoadingIndicator(),
+      );
+    } else if (!appState.isLoading && appState.usuario == null) {
+      return new PantallaLogin();
+    } else {
+      return _buildTabView();
+    }
+  }
+
+  Center _buildLoadingIndicator() {
+    return Center(
+      child: new CircularProgressIndicator(),
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    // Build the content depending on the state:
+    appState = StateWidget.of(context).state;
+    return _buildContent();
   }
 }
