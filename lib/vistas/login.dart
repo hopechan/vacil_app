@@ -20,7 +20,7 @@ class _PantallaLoginState extends State<PantallaLogin> {
 
     Text _buildText() {
       return Text(
-        'Recipes',
+        'Vacilando App',
         style: Theme.of(context).textTheme.headline,
         textAlign: TextAlign.center,
       );
