@@ -5,13 +5,16 @@ import './opciones.dart';
 import 'package:vacil_app/vistas/login.dart';
 import 'package:vacil_app/modelos/state.dart';
 import 'package:vacil_app/state_widget.dart';
+import 'package:vacil_app/modelos/usuario.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class PantallaHome extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new PantallaHomeState();
 }
-
 class PantallaHomeState extends State<PantallaHome> {
   StateModel appState;
+  Usuario usuarioApp;
   //Widget para tabs 
   DefaultTabController _buildTabView({Widget body}) {
     return DefaultTabController(
@@ -36,22 +39,31 @@ class PantallaHomeState extends State<PantallaHome> {
         drawer: new Drawer(
             child: new ListView(
               children: <Widget>[
-                //por el momento las imágenes de perfil y portada son puesta de manera Hardcode
-                new UserAccountsDrawerHeader(
-                  accountName: new Text("usuario"),
-                  accountEmail: new Text("usuario@user.com"),
-                  currentAccountPicture: new GestureDetector(
-                    onTap: () => print("Se ha loggeado como usuario"),
-                    child: CircleAvatar(
-                      backgroundImage: new NetworkImage("https://img.fireden.net/v/image/1487/68/1487681871114.jpg"),
-                    ),
-                  ),
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                      image: new NetworkImage("https://img00.deviantart.net/35f0/i/2015/018/2/6/low_poly_landscape__the_river_cut_by_bv_designs-d8eib00.jpg"),
-                      fit: BoxFit.fill
-                    )
-                  ),
+                new FutureBuilder<FirebaseUser>(
+                  future: FirebaseAuth.instance.currentUser(),
+                  builder: (BuildContext context, AsyncSnapshot<FirebaseUser> snapshot){
+                    if(snapshot.connectionState == ConnectionState.done){
+                      return new UserAccountsDrawerHeader(
+                        accountName: new Text(snapshot.data.displayName),
+                        accountEmail: new Text(snapshot.data.email),
+                        currentAccountPicture: new GestureDetector(
+                          onTap: () => print("Se ha loggeado como usuario"),
+                          child: CircleAvatar(
+                            backgroundImage: new NetworkImage(snapshot.data.photoUrl),
+                          ),
+                        ),
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                          image: new NetworkImage("https://img00.deviantart.net/35f0/i/2015/018/2/6/low_poly_landscape__the_river_cut_by_bv_designs-d8eib00.jpg"),
+                          fit: BoxFit.fill
+                        )
+                      ),
+                    );
+                    
+                    }else{
+                      return new Text("Cargando...");
+                    }
+                  },
                 ),
                 //opciones del menú 
                 new ListTile(

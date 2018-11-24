@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vacil_app/modelos/state.dart';
 import 'package:vacil_app/controlador/googleSignIn.dart';
+import 'package:vacil_app/modelos/usuario.dart';
 
 class StateWidget extends StatefulWidget{
   final StateModel state;
@@ -19,7 +20,6 @@ class StateWidget extends StatefulWidget{
     return (context.inheritFromWidgetOfExactType(_StateDataWidget)
         as _StateDataWidget).data;
   }
-
 
   @override
   _StateWidgetState createState() => new _StateWidgetState();
@@ -55,6 +55,10 @@ class _StateWidgetState extends State<StateWidget>{
     if (cuentaGoogle == null) {
       // Start the sign-in process:
       cuentaGoogle = await googleSignIn.signIn();
+      Usuario usuarioApp = new Usuario();
+      usuarioApp.snombreUsuario = cuentaGoogle.displayName;
+      usuarioApp.sfotoUsuario = cuentaGoogle.photoUrl;
+      usuarioApp.semailUsuario = cuentaGoogle.email;
     }
     FirebaseUser firebaseUser = await entrarFirebase(cuentaGoogle);
     setState(() {
@@ -81,8 +85,6 @@ class _StateDataWidget extends InheritedWidget {
     @required this.data,
   }) : super(key: key, child: child);
 
-  // Rebuild the widgets that inherit from this widget
-  // on every rebuild of _StateDataWidget: 
   @override
   bool updateShouldNotify(_StateDataWidget old) => true;
 }
