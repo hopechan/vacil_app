@@ -11,12 +11,14 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.2.0
+  #dependencias para auntenticacion 
   firebase_auth:
   google_sign_in:
   cloud_firestore: 
   http: ^0.12.0
-
-
+  #dependencias para mapas y ruteo
+  location: ^1.4.1
+  flutter_map:
 
 dev_dependencies:
   flutter_test:

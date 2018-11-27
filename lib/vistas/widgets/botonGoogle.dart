@@ -14,13 +14,13 @@ class BotonGoogleSignIn extends StatelessWidget {
             alignment: new Alignment(0.0 ,0.0),
             child: RaisedButton.icon(
               onPressed: this.onPressed,
-              textColor: Colors.black,
-              color: Colors.white,
-              icon: new Icon(FontAwesomeIcons.google, color: Colors.redAccent),
+              textColor: Colors.white,
+              color: Colors.redAccent,
+              icon: new Icon(FontAwesomeIcons.google, color: Colors.white),
               label: new Text(
                 " Entrar con Google",
                 style: new TextStyle(
-                color: Colors.black
+                color: Colors.white
                 )
               ),
             ),

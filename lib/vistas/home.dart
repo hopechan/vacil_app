@@ -5,6 +5,7 @@ import './opciones.dart';
 import 'package:vacil_app/vistas/login.dart';
 import 'package:vacil_app/modelos/state.dart';
 import 'package:vacil_app/state_widget.dart';
+import 'package:vacil_app/vistas/widgets/mapa.dart';
 import 'package:vacil_app/modelos/usuario.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -31,7 +32,8 @@ class PantallaHomeState extends State<PantallaHome> {
         ),
         body: TabBarView(
           children: <Widget>[
-            Icon(FontAwesomeIcons.bus),
+            //carga el mapa 
+            Mapa(),
             Icon(FontAwesomeIcons.taxi),
             Icon(FontAwesomeIcons.walking)
           ],
@@ -87,7 +89,7 @@ class PantallaHomeState extends State<PantallaHome> {
                 new Divider(),
                 new ListTile(
                   title: new Text("Logout"),
-                  trailing: new Icon(FontAwesomeIcons.arrowLeft)
+                  trailing: new Icon(FontAwesomeIcons.arrowLeft),
                 )
               ],
             )
