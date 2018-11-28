@@ -9,7 +9,6 @@ import 'package:location/location.dart';
  * 1.-Montar el mapa => listo \ :v /
  * 2.-Conseguir posicion actual 
  * 3.-Unir todo :'v
- * -89.573,13.971
  */
 class Mapa extends StatefulWidget{
   @override

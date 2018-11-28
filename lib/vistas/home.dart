@@ -69,12 +69,12 @@ class PantallaHomeState extends State<PantallaHome> {
                 ),
                 //opciones del menú 
                 new ListTile(
-                  title: new Text("mis rutas"),
-                  trailing: new Icon(FontAwesomeIcons.mapMarkerAlt),
+                  title: new Text("Ir caminando"),
+                  trailing: new Icon(FontAwesomeIcons.walking),
                 ),
                 new ListTile(
-                  title: new Text("opciones"),
-                  trailing: new Icon(FontAwesomeIcons.cog),
+                  title: new Text("Ir es Autobus"),
+                  trailing: new Icon(FontAwesomeIcons.busAlt),
                   //este menú cuando regresó a la pantalla principal me muestra un fondo negro
                   onTap: () {
                     Navigator.of(context).pop();
@@ -82,8 +82,12 @@ class PantallaHomeState extends State<PantallaHome> {
                   } 
                 ),
                 new ListTile(
-                  title: new Text("cerrar"),
-                  trailing: new Icon(FontAwesomeIcons.times),
+                  title: new Text("Taxis"),
+                  trailing: new Icon(FontAwesomeIcons.taxi),
+                ),
+                new ListTile(
+                  title: new Text("Opciones"),
+                  trailing: new Icon(FontAwesomeIcons.cog),
                   onTap: () => Navigator.of(context).pop(),
                 ),
                 new Divider(),
