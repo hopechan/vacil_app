@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:vacil_app/modelos/taxi.dart';
 import 'package:vacil_app/controlador/TaxiController.dart';
-import 'package:vacil_app/vistas/verTaxi.dart';
+import 'package:vacil_app/vistas/addTaxi.dart';
 
 class ListViewTaxi extends StatefulWidget {
   @override
@@ -83,9 +83,11 @@ class _ListViewTaxiState extends State<ListViewTaxi> {
                               ),
                             ),
                           ),
+                          /*
                           IconButton(
                               icon: const Icon(Icons.remove_circle_outline),
                               onPressed: () => _borrarTaxi(context, items[position], position)),
+                          */
                         ],
                       ),
                       onTap: () => _navigateToTaxi(context, items[position]),
@@ -101,22 +103,14 @@ class _ListViewTaxiState extends State<ListViewTaxi> {
       ),
     );
   }
- 
-  void _borrarTaxi(BuildContext context, Taxi t, int position) async {
-    db.borrarTaxi(t.getIdTaxista).then((notes) {
-      setState(() {
-        items.removeAt(position);
-      });
-    });
-  }
- 
+
   void _navigateToTaxi(BuildContext context, Taxi t) async {
     await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => VistaTaxi(t)),
     );
   }
- 
+
   void _nuevoTaxi(BuildContext context) async {
     await Navigator.push(
       context,
