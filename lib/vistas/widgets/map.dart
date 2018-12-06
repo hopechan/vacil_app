@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter/services.dart';
 import 'package:location/location.dart';
-import 'package:vacil_app/modelos/busStop.dart';
+
 class Mapa extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => new MapaState();
@@ -50,44 +50,47 @@ class MapaState extends State<Mapa>{
   }
 
   Widget build(BuildContext context){
-    return new FlutterMap(
-      options: new MapOptions(
-        //coordenadas iniciales cuando inicia app
-        center: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
-        zoom: 15.0,
-      ),
-      layers: [
-        new TileLayerOptions(
+    var marcador = <Marker>[
+      new Marker(
+        width: 10.0,
+        height: 10.0,
+        point: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
+        builder: (context) => new Container(
+          child: new IconButton(
+            icon: Icon(FontAwesomeIcons.mapMarkerAlt),
+            color: Colors.redAccent,
+            iconSize: 45.0,
+            onPressed: () {
+              print("Tocaste un marcador");
+            },
+          ),
+        )
+      )
+    ];
+    
+    return new Scaffold(
+      body: new FlutterMap(
+          options: new MapOptions(
+            center: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
+            zoom: 5.0,
+            maxZoom: 5.0,
+            minZoom: 3.0
+          ),
+          layers: [
+            new TileLayerOptions(
           //URL de mapbox con la llave 
-          urlTemplate: "https://api.tiles.mapbox.com/v4/"
+            urlTemplate: "https://api.tiles.mapbox.com/v4/"
               "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-          additionalOptions: {
+            additionalOptions: {
             'accessToken': 'pk.eyJ1Ijoib211bmUiLCJhIjoiY2pvbmRsMDJmMHR2djNscm93dWRqbGZyaCJ9._vn3SVRbXIoRz6wvpbdCAA',
             'id': 'mapbox.streets',
-          },
-        ),
-        new MarkerLayerOptions(
-          markers: [
-            new Marker(
-              width: 45.0,
-              height: 45.0,
-              point: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
-              builder: (context) =>
-              new Container(
-                child: new IconButton(
-                  icon: Icon(FontAwesomeIcons.mapMarkerAlt),
-                  color: Colors.redAccent,
-                  iconSize: 45.0,
-                  onPressed: () {
-                    print("Tocaste un marcador");
-                  },
-                ),
-              ),
+              },
             ),
           ],
         ),
-      ],
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
-
