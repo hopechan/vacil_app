@@ -27,6 +27,8 @@ class BotonesFlotantesState extends State<BotonesFlotantes>{
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         FloatingActionButton(
+          //solucion a la pantalla en negro :v
+          heroTag: 'btnRuta',
           backgroundColor: Colors.amberAccent,
           child: Icon(FontAwesomeIcons.plus),
           onPressed: (){
@@ -120,6 +122,7 @@ class BotonesFlotantesState extends State<BotonesFlotantes>{
         ),
         Padding(padding: new EdgeInsets.all(5.0)),
         FloatingActionButton(
+          heroTag: 'btnLocalizar',
           backgroundColor: Colors.amberAccent,
           child: Icon(FontAwesomeIcons.crosshairs),
           onPressed: (){

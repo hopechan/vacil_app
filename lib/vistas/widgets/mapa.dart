@@ -15,7 +15,7 @@ class Mapa extends StatefulWidget{
 }
 
 class MapaState extends State<Mapa>{
-  List<BusStop> items;
+  List<BusStop> itemsdb;
   StreamSubscription<QuerySnapshot> busSub;
   Map<String, double> _posicionInicial;
   Map<String, double> _posicionActual;
@@ -30,10 +30,6 @@ class MapaState extends State<Mapa>{
     Map<String, double> posicionBus;
     try {
       posicionBus = await posicion.getLocation();
-      print(b.getRuta);
-      print(b.getPrecio);
-      print(posicionBus['latitude']);
-      print(posicionBus['longitude']);
       db.crearBus(
         BusStop.crear(
           posicionBus['longitude'], 
@@ -47,17 +43,26 @@ class MapaState extends State<Mapa>{
     }
   }
 
+  List<Marker> crearListaMarcadores(List<BusStop> listaBuses){
+    List<Marker> marcadores;
+    for (var i in listaBuses) {
+      Marker m = new Marker();
+    }
+    return marcadores;
+  }
+
   void initState(){
     super.initState();
     //obtener elementos desde la db
-    items = new List();
+    itemsdb = new List();
+    //se usa ?. para evitar que el operador de la izquierda lanze excepcion cuando sea null :v
     busSub?.cancel();
     busSub = db.getListaBus().listen((QuerySnapshot snapshot){
       final List<BusStop> buses = snapshot.documents
         .map((documentoSnapshot) => BusStop.fromMap(documentoSnapshot.data))
         .toList();
       setState(() {
-        this.items = buses;
+        this.itemsdb = buses;
       });  
     });
     //cosos para longitud y latitud
@@ -65,7 +70,6 @@ class MapaState extends State<Mapa>{
     _posicionSub = posicion.onLocationChanged().listen((Map<String,double> resultado){
       setState(() {
         _posicionNuevoBus = resultado;
-        print(_posicionNuevoBus['latitude']);
         _posicionActual = resultado;      
         });
     });
@@ -101,7 +105,6 @@ class MapaState extends State<Mapa>{
 
   Widget build(BuildContext context){
     return new FlutterMap(
-
       options: new MapOptions(
         //coordenadas iniciales cuando inicia app
         center: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
@@ -118,24 +121,7 @@ class MapaState extends State<Mapa>{
           },
         ),
         new MarkerLayerOptions(
-          markers: [
-            new Marker(
-              width: 45.0,
-              height: 45.0,
-              point: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
-              builder: (context) =>
-              new Container(
-                child: new IconButton(
-                  icon: Icon(FontAwesomeIcons.mapMarkerAlt),
-                  color: Colors.redAccent,
-                  iconSize: 45.0,
-                  onPressed: () {
-                    print("Tocaste un marcador");
-                  },
-                ),
-              ),
-            ),
-          ],
+          markers: crearListaMarcadores(itemsdb)
         ),
       ],
     );
