@@ -5,6 +5,7 @@ import 'package:vacil_app/modelos/taxi.dart';
 import 'package:vacil_app/controlador/TaxiController.dart';
 import 'package:vacil_app/vistas/addTaxi.dart';
 
+
 class ListViewTaxi extends StatefulWidget {
   @override
   _ListViewTaxiState createState() => new _ListViewTaxiState();

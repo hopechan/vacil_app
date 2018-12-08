@@ -3,7 +3,8 @@ class BusStop{
   double longitud;
   double latitud;
   String ruta;
-  double precio;
+  String precio;
+
   BusStop(
     this.id,
     this.longitud,
@@ -19,12 +20,17 @@ class BusStop{
     this.precio
   );
 
+  BusStop.marcador(
+    this.ruta,
+    this.precio
+  );
+
   //getters
   String get getId => id;
   double get getLongitud => longitud;
   double get getLatitud => latitud;
   String get getRuta => ruta;
-  double get getPrecio => precio;
+  String get getPrecio => precio;
 
   Map<String, dynamic> toMap(){
     var map = new Map<String, dynamic>();

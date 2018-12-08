@@ -139,16 +139,10 @@ class VistaTaxiState extends State<VistaTaxi>{
                 },
               ),
               new Container(
-                
                 color: Colors.white10,
                 width: screenSize.width,
                 margin: new EdgeInsets.only(top: 20.0),
                 child: new RaisedButton.icon(
-                  /*
-                  label: new Text(
-                    'Guardar', 
-                    style: new TextStyle(color: Colors.black)
-                  ),*/
                   label: (widget.taxi.idTaxista != null) 
                   ? Text('Actualizar Taxi', style: new TextStyle(color: Colors.black),) 
                   : Text('Nuevo Taxi', style: new TextStyle(color: Colors.black),),

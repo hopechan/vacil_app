@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:vacil_app/state_widget.dart';
 import 'package:vacil_app/modelos/state.dart';
 import 'package:vacil_app/vistas/login.dart';
-import 'package:vacil_app/vistas/widgets/mapa.dart';
+import 'package:vacil_app/vistas/widgets/botonesFlotantes.dart';
 import 'package:vacil_app/vistas/widgets/drawer.dart';
+import 'package:vacil_app/vistas/widgets/mapa.dart';
 
 class PantallaHome extends StatefulWidget {
   @override
@@ -15,10 +16,12 @@ class PantallaHomeState extends State<PantallaHome>{
     return Container(
       child: new Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amberAccent,
           title: Text(""),
         ),
         drawer: DrawerApp(),
         body: Mapa(),
+        floatingActionButton: BotonesFlotantes(),
       ),
     );
   }
