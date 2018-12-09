@@ -16,6 +16,7 @@ class Mapa extends StatefulWidget{
 
 class MapaState extends State<Mapa>{
   List<BusStop> itemsdb;
+  List<Marker> marcadores = [];
   StreamSubscription<QuerySnapshot> busSub;
   Map<String, double> _posicionInicial;
   Map<String, double> _posicionActual;
@@ -41,14 +42,6 @@ class MapaState extends State<Mapa>{
     } catch (e) {
       print(e);
     }
-  }
-
-  List<Marker> crearListaMarcadores(List<BusStop> listaBuses){
-    List<Marker> marcadores;
-    for (var i in listaBuses) {
-      Marker m = new Marker();
-    }
-    return marcadores;
   }
 
   void initState(){
@@ -104,26 +97,50 @@ class MapaState extends State<Mapa>{
   }
 
   Widget build(BuildContext context){
-    return new FlutterMap(
-      options: new MapOptions(
-        //coordenadas iniciales cuando inicia app
-        center: new LatLng(_posicionActual["latitude"], _posicionActual["longitude"]),
-        zoom: 15.0,
-      ),
-      layers: [
-        new TileLayerOptions(
-          //URL de mapbox con la llave 
-          urlTemplate: "https://api.tiles.mapbox.com/v4/"
-              "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-          additionalOptions: {
-            'accessToken': 'pk.eyJ1Ijoib211bmUiLCJhIjoiY2pvbmRsMDJmMHR2djNscm93dWRqbGZyaCJ9._vn3SVRbXIoRz6wvpbdCAA',
-            'id': 'mapbox.streets',
-          },
-        ),
-        new MarkerLayerOptions(
-          markers: crearListaMarcadores(itemsdb)
-        ),
-      ],
+    return StreamBuilder(
+      stream: Firestore.instance.collection('BusStops').snapshots(),
+      builder: (context, snapshot){
+        if(!snapshot.hasData) return Text("Cargado mapa.. Espera");
+        for (int i = 0; i < snapshot.data.documents.length; i++) {
+          marcadores.add(new Marker(
+              width: 25.0,
+              height: 25.0,
+              point: new LatLng(snapshot.data.documents[i]['Latitud'], snapshot.data.documents[i]['Longitud']),
+              builder: (context) => new Container(
+                child: IconButton(
+                  icon: Icon(FontAwesomeIcons.busAlt),
+                  color: Colors.indigoAccent,
+                  iconSize: 25.0,
+                  onPressed: (){
+                    print(snapshot.data.documents[i]['Ruta']);
+                  },
+                ),
+              )
+            )
+          );
+        }
+        return new FlutterMap(
+          options: new MapOptions(
+          //coordenadas iniciales cuando inicia app
+            center: new LatLng(_posicionActual['latitude'], _posicionActual['longitude']),
+            zoom: 15.0,
+          ),
+          layers: [
+            new TileLayerOptions(
+            //URL de mapbox con la llave 
+              urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                  "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+              additionalOptions: {
+                'accessToken': 'pk.eyJ1Ijoib211bmUiLCJhIjoiY2pvbmRsMDJmMHR2djNscm93dWRqbGZyaCJ9._vn3SVRbXIoRz6wvpbdCAA',
+                'id': 'mapbox.streets',
+              },
+            ),
+            new MarkerLayerOptions(
+              markers: marcadores
+            ),
+          ],
+        );
+      },
     );
   }
 }
