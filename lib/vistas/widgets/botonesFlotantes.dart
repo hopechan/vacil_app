@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vacil_app/modelos/busStop.dart';
 import 'package:vacil_app/vistas/widgets/mapa.dart';
@@ -15,7 +16,6 @@ class BotonesFlotantesState extends State<BotonesFlotantes>{
 
   @override
     void initState() {
-      // TODO: implement initState
       super.initState();
       rutaTxt = new TextEditingController();
       precioTxt = new TextEditingController();
@@ -27,6 +27,8 @@ class BotonesFlotantesState extends State<BotonesFlotantes>{
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         FloatingActionButton(
+          //solucion a la pantalla en negro :v
+          heroTag: 'btnRuta',
           backgroundColor: Colors.amberAccent,
           child: Icon(FontAwesomeIcons.plus),
           onPressed: (){
@@ -107,7 +109,15 @@ class BotonesFlotantesState extends State<BotonesFlotantes>{
                           ),
                           onTap: (){
                             MapaState().guardarBus(BusStop.marcador(rutaTxt.text, precioTxt.text));
+                            Fluttertoast.showToast(
+                              msg: 'Estacion guardada',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: Colors.grey,
+                              textColor: Colors.white
+                            );
                             print("Guardaste un bus :v");
+                            Navigator.of(context, rootNavigator:true).pop();
                           },
                         ),
                       ],
@@ -120,6 +130,7 @@ class BotonesFlotantesState extends State<BotonesFlotantes>{
         ),
         Padding(padding: new EdgeInsets.all(5.0)),
         FloatingActionButton(
+          heroTag: 'btnLocalizar',
           backgroundColor: Colors.amberAccent,
           child: Icon(FontAwesomeIcons.crosshairs),
           onPressed: (){

@@ -20,6 +20,9 @@ dependencies:
   #dependencias para mapas y ruteo
   location: ^1.4.1
   flutter_map:
+  #mostrar toast 
+  fluttertoast: ^2.1.4
+  url_launcher: ^4.0.2
 
 dev_dependencies:
   flutter_test:

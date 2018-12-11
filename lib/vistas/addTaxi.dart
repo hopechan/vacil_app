@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vacil_app/modelos/taxi.dart';
 import 'package:vacil_app/controlador/TaxiController.dart';
@@ -159,6 +160,13 @@ class VistaTaxiState extends State<VistaTaxi>{
                         widget.taxi.getModelo, 
                         widget.taxi.getPlaca))
                         .then((_){
+                        Fluttertoast.showToast(
+                          msg: 'Datos Actualizados',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.white
+                        );
                         Navigator.pop(context);
                       });
                     } else {
@@ -171,6 +179,13 @@ class VistaTaxiState extends State<VistaTaxi>{
                         modeloTxt.text,
                         placaTxt.text
                         )).then((_){
+                        Fluttertoast.showToast(
+                          msg: 'Datos Guardados',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.grey,
+                          textColor: Colors.white
+                        );
                         Navigator.pop(context);
                       });
                     }

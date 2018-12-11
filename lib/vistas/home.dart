@@ -17,7 +17,7 @@ class PantallaHomeState extends State<PantallaHome>{
       child: new Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.amberAccent,
-          title: Text(""),
+          title: Text("Vacilando"),
         ),
         drawer: DrawerApp(),
         body: Mapa(),
