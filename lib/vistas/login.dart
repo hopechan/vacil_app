@@ -18,11 +18,17 @@ class _PantallaLoginState extends State<PantallaLogin> {
       );
     }
 
-    Text _buildText() {
+    Image _buildText() {
+      /*
       return Text(
         'Vacilando App',
         style: Theme.of(context).textTheme.headline,
         textAlign: TextAlign.center,
+      );
+      */
+      return Image(
+        image: AssetImage('images/logo.png'),
+        fit: BoxFit.scaleDown,
       );
     }
 

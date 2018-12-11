@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vacil_app/modelos/taxi.dart';
 import 'package:vacil_app/controlador/TaxiController.dart';
 import 'package:vacil_app/vistas/addTaxi.dart';
+import 'package:vacil_app/vistas/detalleTaxi.dart';
 
 
 class ListViewTaxi extends StatefulWidget {
@@ -108,7 +109,7 @@ class _ListViewTaxiState extends State<ListViewTaxi> {
   void _navigateToTaxi(BuildContext context, Taxi t) async {
     await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => VistaTaxi(t)),
+      MaterialPageRoute(builder: (context) => DetalleTaxi(t)),
     );
   }
 
